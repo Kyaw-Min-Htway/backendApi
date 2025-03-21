@@ -26,6 +26,7 @@ router.post('/', authMiddleware, async (req, res) => {
     total,
     estimatedDelivery: '30-40 mins',
     deliveryLocation: user.address,
+    deliveryCoordinates: { lat: 16.8409, lng: 96.1722 }, // Static Yangon coordinates အတွက်
   });
   await order.save();
   req.io.emit('orderUpdate', order);
@@ -49,10 +50,10 @@ router.get('/:id', authMiddleware, async (req, res) => {
 });
 
 router.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
-  const { status, estimatedDelivery } = req.body;
+  const { status, estimatedDelivery, deliveryCoordinates } = req.body;
   const order = await Order.findByIdAndUpdate(
     req.params.id,
-    { status, estimatedDelivery },
+    { status, estimatedDelivery, deliveryCoordinates },
     { new: true }
   );
   req.io.emit('orderUpdate', order);

@@ -9,6 +9,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const restaurantRoutes = require('./src/routes/restaurantRoutes');
 const orderRoutes = require('./src/routes/orderRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
+const reviewRoutes = require('./src/routes/reviewRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -38,6 +39,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/restaurants', restaurantRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 async function sendPushNotification(expoPushToken, title, body) {
   const message = {
